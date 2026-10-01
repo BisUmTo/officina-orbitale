@@ -43,3 +43,13 @@ Il controllo automatico del download tramite l'adattatore del browser integrato 
 Non sono stati provati fisicamente un iPhone/Android, un lettore schermo completo o l'ascolto attraverso altoparlanti del dispositivo. Dimensioni mobili, semantica accessibile, gestione del movimento e grafo WebAudio sono implementati; questo non sostituisce un test con studenti reali.
 
 La cifratura non rende autentici dati creati interamente sul client. Le metriche supportano una valutazione formativa, non la sostituiscono. Non è stata effettuata alcuna pubblicazione online.
+
+## Ribilanciamento del 1 ottobre 2026
+
+- Tre revisioni con profili di studenti simulati, non utenti reali: concordanza su sei somme iniziali senza riporti e interruzioni eccessive. Revisioni successive hanno corretto etichette allenamento/infinito e distinzione fra manuale e apertura del reattore.
+- Browser reale su origine di collaudo separata: completati i tre carichi iniziali, raggiunta missione 2 con un clic, risolta previsione, aperto il reattore mantenendo tutte le vite.
+- Layout 390×844: riepilogo di missione e previsione con CTA visibile. A 320px: larghezza documento 320px, bit da 44×46px, nessun overflow orizzontale della pagina nel caso iniziale provato. I casi a 8 colonne mantengono lo scorrimento interno preesistente.
+- Screenshot locali ignorati da Git: `design/qa/v2-rotta-continua-mobile.jpg`, `design/qa/v2-prima-previsione-mobile.jpg`.
+- Nuove regressioni: riporti immediati, continuità missioni, checkpoint dopo fallimento e reload, colonne non fondibili, input durante animazione, record coerenti dopo retry, conservazione v1 e lettura del supporto nei LOG precedenti.
+- Nessuna chiave rigenerata e nessuna pubblicazione. Il miglioramento dell'interesse è un'ipotesi progettuale da osservare in classe; la simulazione degli agenti non la dimostra.
+- Esito finale: 39/39 test Node passati; un test integrato completa i 60 carichi tramite handler dell'app e verifica il passaggio alla modalità infinita e la validità del LOG. La verifica browser riguarda il primo tratto e il layout, non una sessione manuale completa di 60 carichi.

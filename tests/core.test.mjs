@@ -64,7 +64,7 @@ test('replay partial errors and completion',()=>{
 });
 test('20 intentional missions, progression and 8-bit ceiling',()=>{
  for(let level=1;level<=20;level++) {
-  const m=mission(level);assert.equal(m.orders.length,3);assert.equal(m.predict,(level>=6&&level<=8)||level>=15);assert.equal(m.bonusMs>0,level>=5);
+  const m=mission(level);assert.equal(m.orders.length,3);assert.equal(m.predict,level!==1&&level!==9);assert.equal(m.bonusMs>0,level>=5&&level!==9);
   for(const p of m.orders) {assert.ok(expected(p)<=255);assert.ok(p.width>=4&&p.width<=8);}
   if(level<=8) assert.ok(m.orders.every(p=>p.op==='add'));
   else if(level<=16) assert.ok(m.orders.every(p=>p.op==='mul'));
@@ -72,4 +72,23 @@ test('20 intentional missions, progression and 8-bit ceiling',()=>{
  }
  const m=mission(1);m.orders[0].a=255;assert.equal(mission(1).orders[0].a,1);
  assert.throws(()=>mission(0));assert.throws(()=>mission(21));
+});
+
+
+test('rebalance introduces real carries immediately and prediction on the fourth load',()=>{
+ const first=mission(1).orders.map(createPuzzle);
+ assert.equal(first[0].counts.some(n=>n>=2),false);
+ let single=first[1],chain=first[2],moves=0;
+ assert.equal(applyMove(single,{kind:'merge',column:0}).puzzle.counts.some(n=>n>=2),false);
+ while(chain.counts.some(n=>n>=2)){chain=applyMove(chain,{kind:'merge',column:chain.counts.findIndex(n=>n>=2)}).puzzle;moves++}
+ assert.equal(moves,2);assert.equal(mission(2).predict,true);
+ assert.deepEqual(mission(9).orders.map(p=>[p.a,p.b]),[[5,1],[3,2],[3,3]]);
+ assert.equal(mission(9).predict,false);assert.equal(mission(9).bonusMs,0);
+});
+
+test('legacy curriculum remains available for saved runs and historical reports',()=>{
+ assert.deepEqual(mission(1,1).orders.map(p=>[p.a,p.b]),[[1,2],[4,3],[5,10]]);
+ assert.equal(mission(2,1).predict,false);assert.equal(mission(6,1).predict,true);
+ assert.equal(mission(9,1).bonusMs,90000);
+ assert.throws(()=>mission(1,3));
 });

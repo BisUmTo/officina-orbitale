@@ -12,7 +12,7 @@ Conserva una copia privata della chiave docente: serve ad aprire tutti i LOG pro
 
 ## Raccogliere i lavori
 
-1. Lo studente inserisce nome e classe, gioca e scarica il LOG dalla base.
+1. Lo studente inserisce nome e classe, gioca e scarica il LOG dalla base o dal riepilogo.
 2. Prima della consegna termina il carico attivo oppure sceglie **Pausa → Abbandona questa missione**. I carichi sospesi restano sul dispositivo e non sono ancora inclusi.
 3. Lo studente allega il file `.LOG` a Classroom.
 4. Apri `prof.html` dal sito o dal server locale, carica la chiave privata e seleziona i LOG scaricati da Classroom.
@@ -27,7 +27,7 @@ La chiave e i LOG importati restano nella memoria della scheda, senza invio a se
 | Evidenza | Che cosa osservare | Limite |
 |---|---|---|
 | Risultato corretto al primo tentativo | Precisione senza correzioni durante quel carico | Può essere stato richiesto un aiuto; leggerlo insieme al contesto |
-| Fusione valida/errata | Riconoscimento di una coppia di unità nella stessa colonna | La destinazione del riporto è generata dal gioco: non dimostra da sola che lo studente sappia scriverla |
+| Fusione valida/errata | Esecuzione dei riporti; i comandi senza coppie sono disabilitati nella campagna aggiornata | La destinazione del riporto è generata dal gioco: non dimostra da sola che lo studente sappia scriverla |
 | Scelta dei prodotti parziali | Distinzione fra bit 0 e bit 1 del moltiplicatore | Separare errori di scelta da errori di allineamento |
 | Allineamento dei prodotti | Comprensione dello spostamento legato alla posizione del bit | Lo spostamento di una riga zero non cambia il risultato e non viene penalizzato |
 | Aiuti richiesti | Ricorso al manuale o apertura del reattore coperto | Il reattore guidato dei primi livelli non conta come aiuto richiesto |
@@ -47,3 +47,9 @@ Puoi premiare separatamente precisione al primo tentativo, correzione degli erro
 I progressi locali sono salvati nel normale archivio del browser, non cifrati. I file esportati sono cifrati con AES-GCM e chiave di sessione protetta da RSA-OAEP. Nome e classe stanno nel contenuto cifrato; il nome dello studente compare anche nel nome del file per rendere semplice la consegna.
 
 La cifratura tutela il contenuto, **non certifica che il client non sia stato modificato**. Questo è un gioco interamente statico: va usato come evidenza formativa, insieme all'osservazione e agli esercizi su carta.
+
+## Campagna ribilanciata (revisione 2)
+
+Il primo tris introduce subito riporto singolo e catena breve. La previsione parte dalla missione 2; nella 9 il reattore torna visibile per introdurre i prodotti parziali senza timer. A zero vite si riprende dal carico fallito: il tentativo abbandonato resta nel LOG, con i suoi errori e il suo tempo. Le missioni successive si raggiungono direttamente dal riepilogo.
+
+I nuovi tentativi registrano `campaignVersion: 2`. Le partite già in corso conservano esercizi e supporti della revisione 1 fino al termine della missione. I tentativi storici senza questa proprietà sono interpretati come revisione 1; chiavi e formato cifrato restano compatibili. Non confrontare il solo numero di livello fra le due revisioni: osserva operazione e supporto effettivi. Le stelle e i diamanti nella mappa sono riconoscimenti locali, non voti; includono anche gli errori dei tentativi riprovati della stessa missione.

@@ -23,3 +23,15 @@ Automazione: terzo-gioco-binario-sviluppo-e-verifica-per-quattro-ore. Disattivar
 ## Completamento verificato
 Repository copiato nel percorso definitivo con Git e ramo sviluppo-v1. Chiave privata copiata nella cartella docente separata. Test eseguiti anche dalla copia definitiva:26/26superati. Anteprima definitiva attiva su http://127.0.0.1:8774/; pagina docente /prof.html. Salvataggio e lettura LOG verificati tramite alternativa visibile, limite download nativo documentato inQA.
 Automazione portata a PAUSED dopo il completamento, confermato dal servizio. Non occorrono ulteriori risvegli. Nessuna pubblicazione online effettuata. Rimane soltanto il collaudo su telefoni fisici e il riscontro didattico in classe, non eseguibili automaticamente da questa sessione.
+
+## 1 ottobre · Ribilanciamento su feedback del docente
+
+Richiesta: ridurre i ritorni alla base, rendere sostanziosi i primi livelli, conservare la previsione con reattore apribile. Tre agenti hanno simulato profili diversi (esperto impaziente, principiante motivato, intermedio perfezionista) leggendo e percorrendo logicamente il codice. Non si tratta di una prova con studenti reali.
+
+Implementata campagna revisione 2: un orientamento, un riporto singolo, una catena breve nella prima missione; previsione dalla seconda. Prima missione prodotti: identità, raddoppio e prodotto a due righe; reattore visibile e niente timer mentre si introduce la meccanica. Avanzamento diretto con un clic, riepilogo compatto con passaggi espandibili, nessuna modale intermedia obbligatoria. Fine vite: checkpoint sul carico corrente, mantenendo completati e insuccessi nel LOG. Colonne senza coppie disabilitate; i bit rispondono anche durante l'animazione di riporto, mentre fusione e lancio attendono la fine dell'animazione.
+
+Mappa con stella per missione senza errori e diamante per previsione senza aiuti richiesti. Migliore prestazione personale confrontata a parità di missione e revisione; errori dei retry inclusi. Chiavi invariate, LOG vecchi compatibili, partite v1 già in corso conservate fino al confine di missione.
+
+Prova browser separata a porta 8775: primi riporti, riepilogo, passaggio diretto alla missione 2, previsione riuscita, apertura del reattore senza perdita vite. Schermate mobile 390×844; controllo a 320px senza overflow pagina e con bit da almeno 44px. Il collaudo rapido ha individuato e corretto un clic sui bit perso durante l'animazione, ora coperto da test differito. Le partite dell'utente su 8772/8774 non sono state azzerate né manipolate.
+
+Verifica conclusiva ribilanciamento: 39/39 test passati, incluso percorso integrato di tutti i 60 carichi attraverso i comandi dell'app, ingresso in modalità infinita e validazione matematica del LOG. `git diff --check` senza errori.

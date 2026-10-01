@@ -66,7 +66,7 @@ export function replay(problem,actions) {
   const completed=puzzle.phase==='completed';
   return {puzzle,errors,merges,partialCorrect,partialErrors,submitCount,firstTry:completed&&errors===0&&submitCount===1,completed,hints,independent:hints===0};
 }
-const cases = [
+const legacyCases = [
  [['add',1,2],['add',4,3],['add',5,10]],
  [['add',8,7],['add',17,10],['add',36,18]],
  [['add',1,1],['add',2,2],['add',5,1]],
@@ -89,7 +89,21 @@ const cases = [
  [['mul',15,15],['add',127,128],['mul',13,15]]
 ];
 const titles = ['Prime scintille','Rotte luminose','Capsule gemelle','Il ponte dei riporti','Catena stellare','Rotta a memoria','Energia nascosta','Verso la stazione','Copie e silenzio','Spinta doppia','Ali in movimento','Salto orbitale','Motori in squadra','Finestre di luce','Previsione propulsiva','Grande accelerazione','Rotte incrociate','Manovre complesse','Verso il confine','La nuova orbita'];
-export function mission(level) {
+export const CAMPAIGN_VERSION=2;
+const cases=legacyCases.map(rows=>rows.map(row=>[...row]));
+cases[0]=[['add',1,2],['add',5,1],['add',3,1]];
+cases[1]=[['add',5,3],['add',6,3],['add',7,1]];
+cases[2]=[['add',9,5],['add',7,7],['add',13,3]];
+cases[3]=[['add',15,1],['add',11,7],['add',13,11]];
+cases[8]=[['mul',5,1],['mul',3,2],['mul',3,3]];
+cases[9]=[['mul',5,2],['mul',3,4],['mul',5,3]];
+cases[10]=[['mul',7,0],['mul',5,5],['mul',3,6]];
+cases[11]=[['mul',9,2],['mul',11,4],['mul',7,7]];
+// Keep the original curriculum available for a run already in progress and old LOGs.
+export function mission(level,version=CAMPAIGN_VERSION) {
  if (!integer(level,1,20)) throw new RangeError('Missione non valida');
- return {level,title:titles[level-1],sector:level<=8?'Energia':level<=16?'Propulsione':'Orbita',predict:(level>=6&&level<=8)||level>=15,bonusMs:level>=5?90000:0,orders:cases[level-1].map(args=>makeProblem(...args))};
+ if (![1,2].includes(version)) throw new RangeError('Campagna non valida');
+ const predict=version===1?(level>=6&&level<=8)||level>=15:level!==1&&level!==9;
+ const title=version===2?({2:'La prima previsione',3:'Riporti incrociati',9:'Accendi i motori',10:'Prevedi la spinta',11:'Zero e copie'}[level]||titles[level-1]):titles[level-1];
+ return {level,version,title,sector:level<=8?'Energia':level<=16?'Propulsione':'Orbita',predict,bonusMs:level>=5&&!(version===2&&level===9)?90000:0,orders:(version===1?legacyCases:cases)[level-1].map(args=>makeProblem(...args))};
 }

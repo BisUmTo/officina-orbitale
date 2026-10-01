@@ -27,17 +27,18 @@ Tutti i percorsi sono relativi: funziona anche sotto il prefisso `/officina-orbi
 
 - **Somme:** ogni tubo rappresenta una colonna binaria. Tocca un tubo con almeno due capsule: due unità diventano una nella colonna immediatamente a sinistra. È il riporto. Imposta personalmente i bit del risultato e lancia il carico.
 - **Moltiplicazioni:** leggi da destra ogni bit del moltiplicatore. Scegli una copia oppure una riga zero, sposta la copia nella posizione corretta e caricala. I prodotti parziali alimentano il reattore e vengono sommati.
-- **Previsione:** più avanti il reattore è coperto. Puoi prevedere il risultato oppure aprirlo come aiuto registrato.
-- Ogni missione contiene tre carichi e tre vite. Sono presenti 20 missioni con casi intenzionali, tre ambientazioni, effetti sonori e animazioni. **Spazio infinito** si sblocca solo al completamento della ventesima missione.
+- **Previsione:** dalla seconda missione il reattore è coperto; si riapre per introdurre i prodotti nella missione 9. Puoi prevedere il risultato oppure aprirlo come aiuto registrato.
+- Ogni missione contiene tre carichi e tre vite. Il primo riporto arriva nel secondo carico. Un solo clic prosegue al carico o alla missione successiva; il riepilogo matematico si può espandere. A zero vite si riprova il carico corrente con tre vite, conservando quelli già risolti e gli errori nel LOG. Sono presenti 20 missioni con casi intenzionali, tre ambientazioni, effetti sonori e animazioni. **Spazio infinito** si sblocca solo al completamento della ventesima missione.
 - **Allenamento** è separato: scegli somme o prodotti, senza timer. Le impostazioni del gioco contengono soltanto suoni, musica e animazioni.
-- Dalla quinta missione il conto alla rovescia assegna un **bonus propulsore** per un carico corretto al primo tentativo entro il tempo. La scadenza non toglie vite e non interrompe il lavoro. Precisione e completamento restano distinti dalla velocità.
+- Dalla quinta missione (tranne la 9, che introduce i prodotti) il conto alla rovescia assegna un **bonus propulsore** per un carico corretto al primo tentativo entro il tempo. La scadenza non toglie vite e non interrompe il lavoro. Precisione e completamento restano distinti dalla velocità.
+- La mappa conserva una **stella** per le missioni completate senza errori e un **diamante** per quelle in previsione anche senza aiuti richiesti. Aprire il reattore o il manuale non blocca la progressione. I record personali confrontano la stessa revisione di campagna.
 - Il salvataggio è locale al browser. Puoi interrompere e riprendere mantenendo errori, vite e tempo. L'identità dello studente rimane associata allo storico; il cambio studente richiede di salvare prima il LOG.
 
 Il gioco arriva a risultati di 8 bit (255). Non include AND/OR bit a bit: questa versione mantiene il focus sulle due operazioni richieste.
 
 ## Consegna e area docente
 
-Dalla base scegli **Il mio LOG → Scarica il file LOG**. Se il browser blocca il salvataggio, espandi l'alternativa e copia il contenuto cifrato in un file `.LOG`. I carichi in corso vengono inclusi dopo il completamento o l'abbandono, evitando export con lo stesso identificatore e contenuti diversi.
+Dalla base o dal riepilogo scegli **Il mio LOG → Scarica il file LOG**. Se il browser blocca il salvataggio, espandi l'alternativa e copia il contenuto cifrato in un file `.LOG`. I carichi in corso vengono inclusi dopo il completamento o l'abbandono, evitando export con lo stesso identificatore e contenuti diversi.
 
 L'area docente importa la chiave privata e uno o più LOG, ricostruisce le azioni, elimina le sovrapposizioni e separa campagna, allenamento e modalità infinita. Offre dettaglio dei passaggi e CSV. Vedi [GUIDA-DOCENTE.md](GUIDA-DOCENTE.md).
 

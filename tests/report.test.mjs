@@ -19,7 +19,7 @@ test('payload validated unchanged; mathematical correctness ignores supplied fla
  assert.equal(s.errors,1);assert.equal(s.firstTry,0);assert.equal(s.completed,1);assert.equal(s.hints,1);assert.equal(s.merges,1);assert.equal(s.independent,0);assert.equal(s.activeMs,1000);
 });
 test('invalid math schemas, status, sequence, time and post-completion are refused',()=>{
- const mutations=[a=>a.problem.width=8,a=>a.problem.a=256,a=>a.level=0,a=>a.status='abandoned',a=>a.actions[0].seq=1,a=>a.actions[0].activeAtMs=1001,a=>a.actions[0].value=2.5,a=>a.actions.push({kind:'hint',seq:1,activeAtMs:10}),a=>a.scaffold='automatic',a=>a.activeMs=NaN,a=>a.actions[0].activeAtMs=-1];
+ const mutations=[a=>a.problem.width=8,a=>a.problem.a=256,a=>a.level=0,a=>a.status='abandoned',a=>a.actions[0].seq=1,a=>a.actions[0].activeAtMs=1001,a=>a.actions[0].value=2.5,a=>a.actions.push({kind:'hint',seq:1,activeAtMs:10}),a=>a.scaffold='automatic',a=>a.campaignVersion=3,a=>a.activeMs=NaN,a=>a.actions[0].activeAtMs=-1];
  for(const mutate of mutations){const source=log();mutate(source.attempts[0]);assert.throws(()=>validateLog(source));}
  const nonmonotonic=log([attempt('a','campaign',[{kind:'hint'},{kind:'submit',value:2}])]);nonmonotonic.attempts[0].actions[0].activeAtMs=500;assert.throws(()=>validateLog(nonmonotonic));
  const abandoned=log([attempt('a','campaign',[{kind:'submit',value:3}])]);abandoned.attempts[0].status='abandoned';assert.equal(validateLog(abandoned),abandoned);
@@ -46,7 +46,7 @@ test('identity and exact mode grouping, operation metrics and median active time
 });
 test('optional scaffold validates and legacy derives reactor versus prediction',()=>{
  const source=log();source.attempts[0].scaffold='prediction';assert.equal(validateLog(source),source);assert.equal(scaffoldOf(source.attempts[0]),'prediction');
- const legacy=attempt();assert.equal(scaffoldOf(legacy),'reactor');legacy.level=7;assert.equal(scaffoldOf(legacy),'prediction');legacy.mode='training';assert.equal(scaffoldOf(legacy),'reactor');
+ const legacy=attempt();assert.equal(scaffoldOf(legacy),'reactor');legacy.level=2;assert.equal(scaffoldOf(legacy),'reactor');legacy.campaignVersion=2;assert.equal(scaffoldOf(legacy),'prediction');delete legacy.campaignVersion;legacy.level=7;assert.equal(scaffoldOf(legacy),'prediction');legacy.mode='training';assert.equal(scaffoldOf(legacy),'reactor');
 });
 test('CSV formula guard and HTML escaping preserve malicious text as data',()=>{
  for(const value of ['=HYPERLINK("x")',' +cmd','\t@SUM(1)','-3','\ntext'])assert.ok(csvCell(value).startsWith('"\''));

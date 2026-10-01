@@ -39,6 +39,7 @@ export function validateLog(log){
   if(!object(attempt)||typeof attempt.id!=='string'||!attempt.id.trim()||attempt.id.length>150||typeof attempt.sessionId!=='string'||!attempt.sessionId.trim()||attempt.sessionId.length>150)fail('identificatore');
   if(ids.has(attempt.id))fail('ID ripetuto nello stesso file');ids.add(attempt.id);
   if(!date(attempt.at)||!['campaign','training','infinite'].includes(attempt.mode)||!integer(attempt.level,1,20)||!['completed','abandoned'].includes(attempt.status)||!integer(attempt.activeMs,0,MAX_ACTIVE))fail('metadati tentativo');
+  if(attempt.campaignVersion!==undefined&&![1,2].includes(attempt.campaignVersion))fail('versione campagna');
   if(attempt.scaffold!==undefined&&!['reactor','prediction'].includes(attempt.scaffold))fail('modalità reattore');
   if(!object(attempt.problem))fail('problema');createPuzzle(attempt.problem);
   if(!Array.isArray(attempt.actions)||attempt.actions.length>MAX_ACTIONS)fail('numero azioni');
@@ -112,7 +113,7 @@ export function csvCell(value){
  return `"${text.replaceAll('"','""')}"`;
 }
 export const escapeHTML=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-export const scaffoldOf=attempt=>attempt.scaffold??(attempt.mode==='training'?'reactor':mission(attempt.level).predict?'prediction':'reactor');
+export const scaffoldOf=attempt=>attempt.scaffold??(attempt.mode==='training'?'reactor':mission(attempt.level,attempt.campaignVersion??1).predict?'prediction':'reactor');
 export const modeLabel=mode=>({campaign:'Campagna',training:'Allenamento',infinite:'Orbita infinita'}[mode]??mode);
 export function buildCSV(rows){
  const header=['Nome','Classe','Modalità','Sessioni','Tentativi','Completati','Abbandonati','Primo tentativo senza errori','Errori','Aiuti','Tentativi senza aiuti richiesti','Fusioni valide','Fusioni errate','Parziali corretti','Errori scelta parziale','Errori allineamento','Tempo attivo ms','Mediana tempo attivo ms'];
