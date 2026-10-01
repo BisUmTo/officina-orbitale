@@ -19,3 +19,7 @@ Documentazione README,GUIDA-DOCENTE,CREDITS,QA e revisioni salvata.
 Copiare il repository e la chiave nei percorsi finali, verificare la copia, aprire anteprima locale definitiva, disattivare automazione e consegnare con limiti reali. Nessuna nuova implementazione richiesta se tutti questi passi risultano già completati sotto.
 
 Automazione: terzo-gioco-binario-sviluppo-e-verifica-per-quattro-ore. Disattivare al completamento; non generare altri controlli dopo la consegna.
+
+## Completamento verificato
+Repository copiato nel percorso definitivo con Git e ramo sviluppo-v1. Chiave privata copiata nella cartella docente separata. Test eseguiti anche dalla copia definitiva:26/26superati. Anteprima definitiva attiva su http://127.0.0.1:8774/; pagina docente /prof.html. Salvataggio e lettura LOG verificati tramite alternativa visibile, limite download nativo documentato inQA.
+Automazione portata a PAUSED dopo il completamento, confermato dal servizio. Non occorrono ulteriori risvegli. Nessuna pubblicazione online effettuata. Rimane soltanto il collaudo su telefoni fisici e il riscontro didattico in classe, non eseguibili automaticamente da questa sessione.

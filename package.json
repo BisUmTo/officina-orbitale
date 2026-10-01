@@ -1,1 +1,10 @@
-{"name":"officina-orbitale","version":"1.0.0","private":true,"type":"module","scripts":{"test":"node --test tests/*.test.mjs","start":"python3 -m http.server 8772 --bind 127.0.0.1 --directory docs"}}
+{
+  "name": "officina-orbitale",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "start": "python3 -m http.server 8774 --bind 127.0.0.1 --directory docs"
+  }
+}
