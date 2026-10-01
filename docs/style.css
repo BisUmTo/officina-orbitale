@@ -20,3 +20,65 @@ body[data-sector=orbita] .space-scene{background-image:linear-gradient(#06102340
 .equation{display:flex;justify-content:center;align-items:baseline;flex-wrap:wrap;column-gap:6px;row-gap:4px;letter-spacing:1px;font-size:clamp(21px,5.8vw,40px)}.equation>span{white-space:nowrap}.equation .op{padding:0 2px}.equation sub,.result-equation sub{font-size:.55em;letter-spacing:0;margin-left:2px;color:#ffcc82}.base-reminder{font-size:13px;line-height:1.4;color:#e2edf0;margin-top:10px}.output-label{flex-wrap:wrap;gap:5px 10px}
 
 .sub-column{min-width:44px;display:flex;flex-direction:column;gap:9px}.sub-column .tube-col{width:100%}.remove-unit{min-width:44px;min-height:44px;padding:7px 2px;border:1px solid #f4bb81;border-radius:11px;background:#603923;color:#ffe0b2;font-size:17px}.remove-unit:disabled{opacity:.55;background:#092b3b;border-color:#396174;color:#a8c9d2}.can-borrow .tube{border-color:#ffc477;box-shadow:inset 0 0 16px #ffbe4226,0 0 8px #ffa74433}.can-borrow:after{content:'1→2';position:absolute;bottom:24px;left:0;right:0;text-align:center;font-size:11px;background:#624321e8;color:#ffe6ad;z-index:3}.game:has(.sub-column) .tube{height:115px}
+
+/* Compact play area: preserve 44px targets and grow tubes only for real capsules. */
+#app:has(.game){padding-top:8px;padding-bottom:max(12px,env(safe-area-inset-bottom))}
+.game .mission-header{margin-bottom:6px}
+.game .mission-heading h1{font-size:20px}
+.game .mission-heading .eyebrow{margin-top:2px}
+.game .health-row{margin:0 2px 8px;min-height:20px}
+.game .timer{padding:3px 8px}
+.game .equation-card{padding:10px 12px;margin-bottom:8px}
+.game .equation-card .eyebrow{margin-bottom:4px;letter-spacing:1.4px}
+.game .base-reminder{margin-top:5px;font-size:12px;line-height:1.35}
+.game .coach{margin:6px 0 8px;min-height:0;gap:6px}
+.game .coach .robot{width:40px;height:45px}
+.game .coach p{padding:7px 9px;font-size:13px;line-height:1.3}
+.game .workshop{margin-bottom:8px}
+.game .reactor-label{margin-bottom:5px;gap:6px;flex-wrap:wrap}
+.game .reactor-label span{font-size:10px;letter-spacing:.8px}
+.game .board-scroll{padding-bottom:5px}
+.game .tube,.game:has(.sub-column) .tube{height:max(76px,calc(var(--stack,2) * 31px + 12px));padding:6px 1px;gap:3px}
+.game .orb{width:min(28px,80%);font-size:12px}
+.game .weight{height:27px;font-size:13px}
+.game .weight b{line-height:19px}
+.game .tube-foot{height:12px}
+.game .can-borrow:after,.game .can-merge:after{bottom:0;line-height:12px;font-size:10px;border-radius:0 0 6px 6px}
+.game .sub-column{gap:6px}
+.game .remove-unit{padding:4px 2px;font-size:15px}
+.game .is-covered .board-scroll{height:106px;overflow:hidden}
+.game .is-covered .reactor-cover{inset:19px 0 4px;gap:7px;padding:8px}
+.game .reactor-cover .cover-icon,.game .reactor-cover p{display:none}
+.game .reactor-cover strong{font-size:16px}
+.game .reactor-cover button{min-height:44px;padding:6px 12px}
+.game .output-panel{padding-top:8px;padding-bottom:6px;margin-bottom:8px}
+.game .output-label{margin-bottom:5px;font-size:10px;letter-spacing:.7px}
+.game .output-scroll{padding-top:0;padding-bottom:5px}
+.game .bit-weight{margin-bottom:3px}
+.game .output-cell .bit-btn{min-width:44px;min-height:44px;height:44px}
+.game .feedback-toast{padding:7px 10px;font-size:13px;line-height:1.3;margin:6px 0}
+.game .game-footer{grid-template-columns:44px 1fr;gap:8px;margin:0}
+.game .game-footer .primary{padding:9px 12px;font-size:19px;min-height:48px}
+.game .game-footer .square{width:44px;height:48px}
+.game .partial-card{width:100%;padding:10px 12px;margin-bottom:8px}
+.game .partial-title{margin-bottom:7px;font-size:13px}
+.game .segmented{margin-bottom:7px}
+.game .segmented button{min-height:44px;padding:6px}
+.game .shift-control{margin:6px 0;gap:6px}
+.game .shift-value{min-height:44px}
+.game .shift-hint{margin-bottom:0}
+.game .loaded-rows{padding:5px 8px;margin:6px 0 0;line-height:1.3}
+@media(max-height:740px){
+ .game .coach .robot{display:none}
+ .game .coach p{padding:6px 9px}
+ .home .hero-art{height:140px;margin:8px auto}
+ .home .hero-art .hero-bot{height:140px;width:115px}
+ .home .hero-art .rocket-sprite{height:150px;width:115px;right:13%}
+ .home .logo{margin-top:8px;font-size:38px}
+ .home .home-actions{margin:12px 0}
+ .home .join-card{padding:12px}
+ .compact-result #launch-art{height:70px;min-height:70px}
+ .compact-result .rocket-sprite{height:73px;width:57px}
+ .compact-result .cargo-track{margin:8px 0 12px}
+ .compact-result .mission-achievement{margin:10px 0 12px;padding:10px}
+}
