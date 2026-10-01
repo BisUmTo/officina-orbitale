@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="it">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>Osservatorio docente · Officina Orbitale</title><link rel="stylesheet" href="./prof.css"></head>
+<body>
+<header class="masthead"><a class="back" href="./index.html">← Officina Orbitale</a><span class="badge">OSSERVATORIO DOCENTE</span></header>
+<main>
+<section class="intro"><div class="eyebrow">LE ROTTE DELL’APPRENDIMENTO</div><h1>Ogni tentativo<br>racconta un percorso.</h1><p>Apri i LOG della tua classe e osserva risultati, prodotti parziali e aiuti. Tutto viene decifrato in questa scheda.</p></section>
+<section class="imports" aria-label="Importazione"><div class="step"><span class="number">01</span><div><h2>La tua chiave</h2><p id="key-status">Chiave non caricata</p><label class="file-button">Carica chiave privata<input id="key-file" type="file" accept=".json,application/json" disabled></label><button id="lock-key" class="quiet" disabled>Rimuovi chiave</button></div></div><div class="step"><span class="number">02</span><div><h2>I LOG degli studenti</h2><p>Seleziona anche più file. I tentativi sovrapposti si contano una sola volta.</p><label class="file-button accent">Importa file LOG<input id="log-files" type="file" accept=".json,.log,application/json" multiple disabled></label></div></div></section>
+<p id="status" role="status" aria-live="polite">Caricamento della chiave pubblica…</p>
+<section class="results" aria-labelledby="results-title"><div class="section-top"><div><div class="eyebrow">IL QUADRO DELLA CLASSE</div><h2 id="results-title">Attività osservate</h2></div><div class="actions"><button id="download-csv" disabled>Esporta CSV</button><button id="clear-reports" class="quiet" disabled>Svuota report</button></div></div>
+<div class="filters"><label>Modalità<select id="filter-mode"><option value="campaign">Campagna</option><option value="training">Allenamento</option><option value="infinite">Orbita infinita</option><option value="all">Tutte · righe separate</option></select></label><label>Classe<select id="filter-class"><option value="">Tutte le classi</option></select></label><label>Studente<input id="filter-name" type="search" placeholder="Cerca un nome"></label></div>
+<p class="note">Campagna, allenamento e orbita infinita restano separati. “Primo tentativo” significa completamento senza errori matematici; gli aiuti richiesti sono conteggiati a parte. Il reattore guidato dei primi livelli non conta come aiuto richiesto; confrontare livelli e modalità equivalenti.</p>
+<div class="stats"><div><span>Studenti</span><strong id="count-students">0</strong></div><div><span>Tentativi</span><strong id="count-attempts">0</strong></div><div><span>Completati</span><strong id="count-completed">0</strong></div><div><span>Sovrapposizioni escluse</span><strong id="count-duplicates">0</strong></div></div>
+<div class="table-scroll"><table id="results-table" hidden><caption class="sr-only">Risultati per studente e modalità. Seleziona un nome per il dettaglio.</caption><thead><tr><th>Studente</th><th>Classe</th><th>Modalità</th><th>Completati</th><th>Primo tentativo</th><th>Errori</th><th>Aiuti</th><th>Tempo attivo</th></tr></thead><tbody id="table-body"></tbody></table></div>
+<div id="empty-state" class="empty"><span aria-hidden="true">✦</span><p>Carica la chiave docente e importa i LOG per osservare i percorsi.</p></div>
+</section>
+<aside class="method"><h2>Leggere i dati con cura</h2><p>La correttezza viene ricostruita dalle azioni. Le fusioni contano operazioni eseguite: un riporto generato dalla fusione non prova una scelta autonoma del riporto. Il tempo è tempo attivo registrato dal gioco, non tempo di studio né misura dell’attenzione.</p><p>La cifratura protegge il contenuto del file. Non certifica l’autenticità dell’attività. Chiave e dati importati rimangono nella memoria di questa pagina; nessuna telemetria.</p></aside>
+</main>
+<footer>Officina Orbitale · Precisione prima della velocità</footer>
+<dialog id="student-detail" aria-labelledby="detail-title"><div class="dialog-top"><div><div class="eyebrow">DETTAGLIO DEL PERCORSO</div><h2 id="detail-title"></h2></div><button id="close-detail" aria-label="Chiudi dettaglio">Chiudi ×</button></div><p id="detail-subtitle"></p><div id="detail-content"></div></dialog>
+<script type="module" src="./prof.mjs"></script>
+</body></html>
