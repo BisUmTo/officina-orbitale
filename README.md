@@ -12,9 +12,13 @@ python3 -m http.server 8774 --bind 127.0.0.1 --directory docs
 
 Apri `http://127.0.0.1:8774/`. La pagina docente è `http://127.0.0.1:8774/prof.html`.
 
-Non aprire `index.html` direttamente come file: i moduli JavaScript e la chiave pubblica richiedono un server locale oppure HTTPS. La pubblicazione non è stata effettuata.
+Non aprire `index.html` direttamente come file: i moduli JavaScript e la chiave pubblica richiedono un server locale oppure HTTPS. Sito pubblico: https://bisumto.github.io/officina-orbitale/ · Area docente: https://bisumto.github.io/officina-orbitale/prof.html
 
 ## Pubblicazione su GitHub Pages
+
+Configurazione attiva: repository `BisUmTo/officina-orbitale`, ramo `sviluppo-v1`, cartella `/docs`, HTTPS abilitato. I successivi push a questo ramo aggiornano il sito.
+
+Per replicare la pubblicazione su un altro repository:
 
 1. Crea un repository GitHub e collegalo alla copia locale.
 2. Pubblica il ramo scelto.

@@ -35,3 +35,8 @@ Mappa con stella per missione senza errori e diamante per previsione senza aiuti
 Prova browser separata a porta 8775: primi riporti, riepilogo, passaggio diretto alla missione 2, previsione riuscita, apertura del reattore senza perdita vite. Schermate mobile 390×844; controllo a 320px senza overflow pagina e con bit da almeno 44px. Il collaudo rapido ha individuato e corretto un clic sui bit perso durante l'animazione, ora coperto da test differito. Le partite dell'utente su 8772/8774 non sono state azzerate né manipolate.
 
 Verifica conclusiva ribilanciamento: 39/39 test passati, incluso percorso integrato di tutti i 60 carichi attraverso i comandi dell'app, ingresso in modalità infinita e validazione matematica del LOG. `git diff --check` senza errori.
+
+
+## 1 ottobre · Pubblicazione autorizzata
+
+Su richiesta esplicita del docente, creato repository pubblico `https://github.com/BisUmTo/officina-orbitale` e pubblicato `sviluppo-v1`. GitHub Pages serve `/docs` a `https://bisumto.github.io/officina-orbitale/`, con HTTPS enforced e prima build confermata `built`. Prima del push: 39/39 test passati, chiave pubblica verificata e controllo della cronologia per materiale di chiave privata. La chiave docente resta nella cartella privata locale. I progressi localhost non sono trasferiti automaticamente all’origine HTTPS.
