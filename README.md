@@ -1,6 +1,6 @@
 # Officina Orbitale
 
-Un'officina spaziale per allenare **somme e moltiplicazioni binarie**. Solo frontend statico, mobile first, pronto per GitHub Pages. Nessun account, backend, CDN o telemetria.
+Un'officina spaziale per allenare **somme, moltiplicazioni e sottrazioni binarie**. Solo frontend statico, mobile first, pronto per GitHub Pages. Nessun account, backend, CDN o telemetria.
 
 ## Avvio locale
 
@@ -31,14 +31,15 @@ Tutti i percorsi sono relativi: funziona anche sotto il prefisso `/officina-orbi
 
 - **Somme:** ogni tubo rappresenta una colonna binaria. Tocca un tubo con almeno due capsule: due unità diventano una nella colonna immediatamente a sinistra. È il riporto. Imposta personalmente i bit del risultato e lancia il carico.
 - **Moltiplicazioni:** leggi da destra ogni bit del moltiplicatore. Scegli una copia oppure una riga zero, sposta la copia nella posizione corretta e caricala. I prodotti parziali alimentano il reattore e vengono sommati.
+- **Sottrazioni (missioni 21–26):** dividi una capsula in due nella colonna immediatamente a destra per effettuare un prestito; togli le capsule segnate −1 e leggi il resto. Le prime due missioni sono guidate e senza timer, le successive in previsione. Solo risultati non negativi, fino a 8 bit. Dopo la missione 26 le sottrazioni entrano anche nello Spazio infinito.
 - **Previsione:** dalla seconda missione il reattore è coperto; si riapre per introdurre i prodotti nella missione 9. Puoi prevedere il risultato oppure aprirlo come aiuto registrato.
-- Ogni missione contiene tre carichi e tre vite. Il primo riporto arriva nel secondo carico. Un solo clic prosegue al carico o alla missione successiva; il riepilogo matematico si può espandere. A zero vite si riprova il carico corrente con tre vite, conservando quelli già risolti e gli errori nel LOG. Sono presenti 20 missioni con casi intenzionali, tre ambientazioni, effetti sonori e animazioni. **Spazio infinito** si sblocca solo al completamento della ventesima missione.
-- **Allenamento** è separato: scegli somme o prodotti, senza timer. Le impostazioni del gioco contengono soltanto suoni, musica e animazioni.
-- Dalla quinta missione (tranne la 9, che introduce i prodotti) il conto alla rovescia assegna un **bonus propulsore** per un carico corretto al primo tentativo entro il tempo. La scadenza non toglie vite e non interrompe il lavoro. Precisione e completamento restano distinti dalla velocità.
+- Ogni missione contiene tre carichi e tre vite. Il primo riporto arriva nel secondo carico. Un solo clic prosegue al carico o alla missione successiva; il riepilogo matematico si può espandere. A zero vite si riprova il carico corrente con tre vite, conservando quelli già risolti e gli errori nel LOG. Sono presenti 26 missioni con casi intenzionali, tre ambientazioni, effetti sonori e animazioni. **Spazio infinito** si sblocca solo al completamento della ventesima missione.
+- **Allenamento** è separato: scegli somme, prodotti o sottrazioni, senza timer. Le impostazioni del gioco contengono soltanto suoni, musica e animazioni.
+- Dalla quinta missione (tranne la 9, che introduce i prodotti, e la 21–22, dedicate ai primi prestiti) il conto alla rovescia assegna un **bonus propulsore** per un carico corretto al primo tentativo entro il tempo. La scadenza non toglie vite e non interrompe il lavoro. Precisione e completamento restano distinti dalla velocità.
 - La mappa conserva una **stella** per le missioni completate senza errori e un **diamante** per quelle in previsione anche senza aiuti richiesti. Aprire il reattore o il manuale non blocca la progressione. I record personali confrontano la stessa revisione di campagna.
 - Il salvataggio è locale al browser. Puoi interrompere e riprendere mantenendo errori, vite e tempo. L'identità dello studente rimane associata allo storico; il cambio studente richiede di salvare prima il LOG.
 
-Il gioco arriva a risultati di 8 bit (255). Non include AND/OR bit a bit: questa versione mantiene il focus sulle due operazioni richieste.
+Il gioco arriva a risultati di 8 bit (255). Non include AND/OR bit a bit: il focus rimane sulle operazioni aritmetiche.
 
 ## Consegna e area docente
 

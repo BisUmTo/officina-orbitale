@@ -53,3 +53,10 @@ La cifratura non rende autentici dati creati interamente sul client. Le metriche
 - Nuove regressioni: riporti immediati, continuità missioni, checkpoint dopo fallimento e reload, colonne non fondibili, input durante animazione, record coerenti dopo retry, conservazione v1 e lettura del supporto nei LOG precedenti.
 - Nessuna chiave rigenerata e nessuna pubblicazione. Il miglioramento dell'interesse è un'ipotesi progettuale da osservare in classe; la simulazione degli agenti non la dimostra.
 - Esito finale: 39/39 test Node passati; un test integrato completa i 60 carichi tramite handler dell'app e verifica il passaggio alla modalità infinita e la validità del LOG. La verifica browser riguarda il primo tratto e il layout, non una sessione manuale completa di 60 carichi.
+
+
+## 1 ottobre · Sottrazioni alla fine della campagna
+
+Aggiunte le missioni 21–26: 18 carichi di sottrazione binaria non negativa, entro 8 bit. Le missioni 21–22 introducono prestito e rimozione con reattore visibile e senza timer; dalla 23 torna la previsione con aiuto facoltativo. Le capsule si dividono verso destra, anche attraverso più zeri. Ogni operazione è etichettata esplicitamente come binaria. Allenamento dedicato subito disponibile; infinito ancora sbloccato dopo la 20 e arricchito di sottrazioni dopo la 26. Chi aveva finito la precedente campagna trova la 21 sbloccata. Progressi, prime 20 missioni, chiavi e LOG precedenti conservati.
+
+Area docente e CSV riconoscono prestiti e rimozioni, oltre ai risultati. Verifica: 45/45 test passati, incluse tutte le 32.896 sottrazioni non negative a 8 bit e il percorso integrato dei 78 carichi attraverso gli handler dell’app. Browser su origine separata: allenamento, sottrazione 222−80 e 66−38 con quattro prestiti, risultato 11100₂, nessun errore; layout 390×844 ispezionato. Screenshot locale `design/qa/sottrazioni-mobile.jpg`. Non è una prova su telefono fisico o con studenti reali.

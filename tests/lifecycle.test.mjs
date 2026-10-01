@@ -144,7 +144,7 @@ test('infinite stays gated until persisted mission 20 completion then creates se
  await resumed.click('infinite');await resumed.click('close');
  assert.equal(resumed.app.state.run.mode,'infinite');assert.equal(resumed.app.state.active.mode,'infinite');
  await resumed.click('pause');await resumed.click('abandon');
- assert.equal(resumed.app.state.attempts[0].mode,'infinite');assert.equal(resumed.app.state.unlocked,20);
+ assert.equal(resumed.app.state.attempts[0].mode,'infinite');assert.equal(resumed.app.state.unlocked,21);
 });
 
 test('repeated deliberate carries in the same column remain available after 440 ms',async t=>{
@@ -238,9 +238,9 @@ test('result bits accept taps during a carry animation while mathematical submis
  assert.equal(h.app.state.attempts[1].actions.at(-1).value,6);assert.equal(h.app.state.run.lives,3);
 });
 
-test('all 60 campaign loads flow through multiplication and mission 20 into unlocked infinite mode',async t=>{
+test('all 78 campaign loads flow through subtraction and mission 26 into unlocked infinite mode',async t=>{
  const h=await harness(t);await h.start();
- for(let load=0;load<60;load++){
+ for(let load=0;load<78;load++){
   const level=Math.floor(load/3)+1;
   assert.equal(h.app.state.run.level,level);assert.equal(h.app.state.run.index,load%3);
   assert.equal(h.node('#modal').open,false,`mission ${level} must not interrupt the route with a dialog`);
@@ -257,6 +257,13 @@ test('all 60 campaign loads flow through multiplication and mission 20 into unlo
   }
   // Follow available controls on the guided reactor; prediction problems go straight to the answer.
   if(scaffold==='reactor'){
+   if(problem.op==='sub'){
+    for(let moves=0;;moves++){
+     const controls=[...h.node('#app').innerHTML.matchAll(/<button\b[^>]*data-action="(remove|borrow)"[^>]*>/g)].filter(([html])=>! /\bdisabled\b/.test(html));
+     const available=controls.find(([,kind])=>kind==='remove')||controls[0];if(!available)break;
+     assert.ok(moves<100);h.advance(440);await h.click(available[1],{column:available[0].match(/data-column="(\d+)"/)[1]});
+    }
+   }
    for(let moves=0;;moves++){
     const available=[...h.node('#app').innerHTML.matchAll(/<button\b[^>]*data-action="merge"[^>]*>/g)].find(([html])=>!/\bdisabled\b/.test(html));
     if(!available)break;
@@ -265,17 +272,42 @@ test('all 60 campaign loads flow through multiplication and mission 20 into unlo
     h.advance(440);await h.click('merge',{column});
    }
   }
-  h.advance(1000);await h.answer(problem.op==='add'?problem.a+problem.b:problem.a*problem.b);
+  h.advance(1000);await h.answer(problem.op==='add'?problem.a+problem.b:problem.op==='sub'?problem.a-problem.b:problem.a*problem.b);
   assert.equal(h.app.state.attempts.length,load+1);assert.equal(h.app.state.summary.type,'order');
   assert.equal(h.app.state.run.lives,3);
-  if(load===59){assert.deepEqual(h.app.state.completed,Array.from({length:20},(_,i)=>i+1));assert.match(h.node('#app').innerHTML,/CAMPAGNA COMPLETATA/)}
+  if(load===77){assert.deepEqual(h.app.state.completed,Array.from({length:26},(_,i)=>i+1));assert.match(h.node('#app').innerHTML,/CAMPAGNA COMPLETATA/)}
   await h.click('next');
  }
  assert.equal(h.app.state.run.mode,'infinite');assert.equal(h.app.state.active.mode,'infinite');
- assert.equal(h.app.state.unlocked,20);assert.equal(h.node('#modal').open,false);
- assert.equal(h.app.state.attempts.length,60);
+ assert.equal(h.app.state.unlocked,26);assert.equal(h.node('#modal').open,false);
+ assert.equal(h.app.state.attempts.length,78);
  assert.ok(h.app.state.attempts.every(a=>a.mode==='campaign'&&a.campaignVersion===2&&a.status==='completed'));
  const log={format:'officina-orbitale-log',version:1,exportedAt:new Date().toISOString(),student:h.app.state.student,attempts:h.app.state.attempts};
  assert.doesNotThrow(()=>validateLog(log));
  assert.ok(log.attempts.every(a=>{const result=replayAttempt(a);return result.completed&&result.errors===0&&result.submitCount===1}));
+});
+
+
+test('old completed campaign unlocks subtraction without removing infinite access',async t=>{
+ const h=await harness(t);const saved=JSON.parse(h.storage.get('officina-orbitale-v1'));
+ saved.completed=Array.from({length:20},(_,i)=>i+1);saved.unlocked=20;h.storage.set('officina-orbitale-v1',JSON.stringify(saved));
+ const resumed=await harness(t,h.storage);assert.equal(resumed.app.state.unlocked,21);
+ assert.match(resumed.node('#app').innerHTML,/Spazio infinito · sbloccato/);
+ await resumed.start();assert.equal(resumed.app.state.run.level,21);assert.equal(resumed.app.state.active.problem.op,'sub');assert.match(resumed.node('#app').innerHTML,/<span class="op">−<\/span>/);
+ await resumed.click('submit');assert.equal(resumed.app.state.run.lives,3);assert.equal(resumed.app.state.active.actions.length,0);
+ await resumed.click('remove',{column:'1'});await resumed.answer(5);await resumed.click('next');
+ await resumed.click('borrow',{column:'1'});await resumed.click('remove',{column:'0'});await resumed.answer(5);await resumed.click('next');
+ await resumed.click('borrow',{column:'3'});const id=resumed.app.state.active.id;
+ const reloaded=await harness(t,resumed.storage);await reloaded.start();assert.equal(reloaded.app.state.active.id,id);
+ await reloaded.click('borrow',{column:'2'});await reloaded.click('remove',{column:'1'});reloaded.advance(500);await reloaded.click('borrow',{column:'1'});await reloaded.click('remove',{column:'0'});await reloaded.answer(5);
+ assert.equal(reloaded.app.state.attempts.length,3);assert.ok(reloaded.app.state.completed.includes(21));
+ const log={format:'officina-orbitale-log',version:1,exportedAt:new Date().toISOString(),student:reloaded.app.state.student,attempts:reloaded.app.state.attempts};assert.doesNotThrow(()=>validateLog(log));
+});
+
+test('subtraction prediction can be solved directly or opened without losing a life',async t=>{
+ const h=await harness(t);const saved=JSON.parse(h.storage.get('officina-orbitale-v1'));saved.unlocked=23;h.storage.set('officina-orbitale-v1',JSON.stringify(saved));
+ const resumed=await harness(t,h.storage);await resumed.start();assert.equal(resumed.app.state.active.scaffold,'prediction');
+ assert.equal(accessibleColumnCount(resumed.node('#app').innerHTML),0);await resumed.answer(6);await resumed.click('next');
+ await resumed.click('reveal');assert.equal(resumed.app.state.run.lives,3);assert.equal(resumed.app.state.active.actions.at(-1).kind,'hint');
+ await resumed.answer(7);assert.equal(resumed.app.state.attempts.length,2);
 });

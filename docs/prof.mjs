@@ -2,7 +2,7 @@ import {mergeLogs,summarize,buildCSV,escapeHTML as html,modeLabel,scaffoldOf} fr
 import {unlock,unseal} from './crypto.mjs';
 import {createPuzzle,applyMove} from './core.mjs';
 const duration=ms=>{const seconds=Math.round(ms/1000);return seconds>=60?`${Math.floor(seconds/60)} min ${seconds%60} s`:`${seconds} s`;};
-const operation=problem=>`${problem.a.toString(2)} ${problem.op==='add'?'+':'×'} ${problem.b.toString(2)}`;
+const operation=problem=>`${problem.a.toString(2)} ${problem.op==='add'?'+':problem.op==='sub'?'−':'×'} ${problem.b.toString(2)}`;
 function mount(){
  const $=id=>document.getElementById(id);
  let privateKey=null,publicKey=null,logs=[],report=summarize([]),busy=false;
@@ -35,8 +35,8 @@ function mount(){
   let puzzle=createPuzzle(attempt.problem);
   return attempt.actions.map(action=>{
    const result=applyMove(puzzle,action),row=puzzle.nextRow;puzzle=result.puzzle;
-   let text=action.kind==='hint'?'Aiuto aperto':action.kind==='merge'?`Fusione nella colonna 2^${action.column}`:action.kind==='partial'?`Parziale ${row+1}: ${action.include?'copia':'riga zero'}, spostamento ${action.shift}`:`Risultato proposto: ${action.value.toString(2)} (${action.value})`;
-   const reason={'partial-value':'scelta della copia o riga zero errata','partial-shift':'allineamento errato','wrong-result':'risultato errato','merge-unavailable':'fusione non disponibile','partials-required':'parziali ancora da completare','partial-unavailable':'parziali già completati'}[result.reason];
+   let text=action.kind==='hint'?'Aiuto aperto':action.kind==='merge'?`Fusione nella colonna 2^${action.column}`:action.kind==='borrow'?`Prestito da 2^${action.column} a 2^${action.column-1}`:action.kind==='remove'?`Rimozione nella colonna 2^${action.column}`:action.kind==='partial'?`Parziale ${row+1}: ${action.include?'copia':'riga zero'}, spostamento ${action.shift}`:`Risultato proposto: ${action.value.toString(2)} (${action.value})`;
+   const reason={'partial-value':'scelta della copia o riga zero errata','partial-shift':'allineamento errato','wrong-result':'risultato errato','borrow-unavailable':'prestito non disponibile','remove-unavailable':'capsula da togliere non disponibile','merge-unavailable':'fusione non disponibile','partials-required':'parziali ancora da completare','partial-unavailable':'parziali già completati'}[result.reason];
    return `<li>${html(text)} · ${duration(action.activeAtMs)} · ${result.correct?(action.kind==='hint'?'aiuto registrato':'corretto'):html(reason||'azione errata')}</li>`;
   }).join('');
  }
@@ -44,7 +44,7 @@ function mount(){
   const row=filtered().find(row=>row.key===key);if(!row)return;
   $('detail-title').textContent=row.name;
   $('detail-subtitle').textContent=`${row.className||'Classe non indicata'} · ${modeLabel(row.mode)} · ${row.sessions} sessioni`;
-  $('detail-content').innerHTML=`<p>${row.completed}/${row.total} completati · ${row.firstTry} senza errori al primo tentativo · ${row.independent} senza aiuti richiesti.</p><p>${row.merges} fusioni valide · ${row.partialCorrect} parziali corretti · ${row.partialValueErrors} errori nella scelta del parziale · ${row.partialShiftErrors} errori di allineamento. Mediana del tempo attivo: ${duration(row.medianActiveMs)}.</p>`+row.attempts.map(attempt=>`<article class="attempt"><div class="attempt-meta"><span>Missione ${attempt.level}</span><span>${scaffoldOf(attempt)==='reactor'?'Reattore guidato':'Previsione'}</span><time>${html(new Date(attempt.at).toLocaleString('it-IT'))}</time><span>${duration(attempt.activeMs)}</span></div><h3>${operation(attempt.problem)} = ${attempt.metrics.expected.toString(2)}</h3><p>${attempt.status==='completed'?'Completato':'Abbandonato'} · ${attempt.metrics.errors} errori · ${attempt.metrics.hints} aiuti · ${attempt.metrics.firstTry?'primo tentativo senza errori':'percorso con correzioni o non completato'}</p><details><summary>Osserva le ${attempt.actions.length} azioni</summary><ol>${actionList(attempt)}</ol></details></article>`).join('');
+  $('detail-content').innerHTML=`<p>${row.completed}/${row.total} completati · ${row.firstTry} senza errori al primo tentativo · ${row.independent} senza aiuti richiesti.</p><p>${row.borrows} prestiti validi · ${row.removals} rimozioni valide · ${row.merges} fusioni valide · ${row.partialCorrect} parziali corretti · ${row.partialValueErrors} errori nella scelta del parziale · ${row.partialShiftErrors} errori di allineamento. Mediana del tempo attivo: ${duration(row.medianActiveMs)}.</p>`+row.attempts.map(attempt=>`<article class="attempt"><div class="attempt-meta"><span>Missione ${attempt.level}</span><span>${scaffoldOf(attempt)==='reactor'?'Reattore guidato':'Previsione'}</span><time>${html(new Date(attempt.at).toLocaleString('it-IT'))}</time><span>${duration(attempt.activeMs)}</span></div><h3>${operation(attempt.problem)} = ${attempt.metrics.expected.toString(2)}</h3><p>${attempt.status==='completed'?'Completato':'Abbandonato'} · ${attempt.metrics.errors} errori · ${attempt.metrics.hints} aiuti · ${attempt.metrics.firstTry?'primo tentativo senza errori':'percorso con correzioni o non completato'}</p><details><summary>Osserva le ${attempt.actions.length} azioni</summary><ol>${actionList(attempt)}</ol></details></article>`).join('');
   $('student-detail').showModal();
  }
  $('key-file').addEventListener('change',async event=>{

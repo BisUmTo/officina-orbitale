@@ -71,7 +71,7 @@ test('20 intentional missions, progression and 8-bit ceiling',()=>{
   else {assert.ok(m.orders.some(p=>p.op==='add'));assert.ok(m.orders.some(p=>p.op==='mul'));}
  }
  const m=mission(1);m.orders[0].a=255;assert.equal(mission(1).orders[0].a,1);
- assert.throws(()=>mission(0));assert.throws(()=>mission(21));
+ assert.throws(()=>mission(0));assert.throws(()=>mission(27));
 });
 
 

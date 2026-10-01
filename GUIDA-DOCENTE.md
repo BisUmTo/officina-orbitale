@@ -53,3 +53,9 @@ La cifratura tutela il contenuto, **non certifica che il client non sia stato mo
 Il primo tris introduce subito riporto singolo e catena breve. La previsione parte dalla missione 2; nella 9 il reattore torna visibile per introdurre i prodotti parziali senza timer. A zero vite si riprende dal carico fallito: il tentativo abbandonato resta nel LOG, con i suoi errori e il suo tempo. Le missioni successive si raggiungono direttamente dal riepilogo.
 
 I nuovi tentativi registrano `campaignVersion: 2`. Le partite già in corso conservano esercizi e supporti della revisione 1 fino al termine della missione. I tentativi storici senza questa proprietà sono interpretati come revisione 1; chiavi e formato cifrato restano compatibili. Non confrontare il solo numero di livello fra le due revisioni: osserva operazione e supporto effettivi. Le stelle e i diamanti nella mappa sono riconoscimenti locali, non voti; includono anche gli errori dei tentativi riprovati della stessa missione.
+
+## Sottrazioni · missioni 21–26
+
+Sei missioni aggiungono 18 esercizi: rimozione diretta, prestito semplice, prestiti attraverso gli zeri e previsione. Le missioni 21–22 mantengono il reattore visibile senza timer; dalla 23 è possibile aprirlo come aiuto. Una capsula viene scambiata con due nella colonna a destra: il suo valore totale resta invariato. I pulsanti −1 rimuovono le unità del sottraendo. Sono esclusi risultati negativi e complemento a due.
+
+Il LOG registra separatamente prestiti e rimozioni; il docente vede i passaggi e il CSV include le relative colonne. Le metriche dei prestiti sono guidate: i comandi non disponibili sono disabilitati, perciò il conteggio non dimostra autonomamente che lo studente sappia scegliere un prestito su carta. I report precedenti sono ancora leggibili con la stessa chiave. Chi ha già finito la missione 20 trova sbloccata la 21 e conserva Spazio infinito.

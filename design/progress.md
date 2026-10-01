@@ -40,3 +40,10 @@ Verifica conclusiva ribilanciamento: 39/39 test passati, incluso percorso integr
 ## 1 ottobre · Pubblicazione autorizzata
 
 Su richiesta esplicita del docente, creato repository pubblico `https://github.com/BisUmTo/officina-orbitale` e pubblicato `sviluppo-v1`. GitHub Pages serve `/docs` a `https://bisumto.github.io/officina-orbitale/`, con HTTPS enforced e prima build confermata `built`. Prima del push: 39/39 test passati, chiave pubblica verificata e controllo della cronologia per materiale di chiave privata. La chiave docente resta nella cartella privata locale. I progressi localhost non sono trasferiti automaticamente all’origine HTTPS.
+
+
+## 1 ottobre · Sottrazioni alla fine della campagna
+
+Aggiunte le missioni 21–26: 18 carichi di sottrazione binaria non negativa, entro 8 bit. Le missioni 21–22 introducono prestito e rimozione con reattore visibile e senza timer; dalla 23 torna la previsione con aiuto facoltativo. Le capsule si dividono verso destra, anche attraverso più zeri. Ogni operazione è etichettata esplicitamente come binaria. Allenamento dedicato subito disponibile; infinito ancora sbloccato dopo la 20 e arricchito di sottrazioni dopo la 26. Chi aveva finito la precedente campagna trova la 21 sbloccata. Progressi, prime 20 missioni, chiavi e LOG precedenti conservati.
+
+Area docente e CSV riconoscono prestiti e rimozioni, oltre ai risultati. Verifica: 45/45 test passati, incluse tutte le 32.896 sottrazioni non negative a 8 bit e il percorso integrato dei 78 carichi attraverso gli handler dell’app. Browser su origine separata: allenamento, sottrazione 222−80 e 66−38 con quattro prestiti, risultato 11100₂, nessun errore; layout 390×844 ispezionato. Screenshot locale `design/qa/sottrazioni-mobile.jpg`. Non è una prova su telefono fisico o con studenti reali.
